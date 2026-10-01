@@ -1,0 +1,43 @@
+---
+import FeedbackForm from '../components/FeedbackForm.tsx';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Feedback geben" description="Geben Sie uns Feedback zu dieser Website.">
+	<main>
+		<h1>Feedback geben</h1>
+		<p>Ist Ihnen ein Fehler aufgefallen oder haben Sie einen Verbesserungsvorschlag? Schreiben Sie uns.</p>
+
+		<section id="feedback">
+			<FeedbackForm client:load />
+		</section>
+	</main>
+</Layout>
+
+<style>
+	main {
+		max-width: 48rem;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+		font-family: system-ui, sans-serif;
+		line-height: 1.5;
+	}
+</style>
+
+{/*
+	React in Astro („Islands“, dieser Kommentar landet nicht im HTML):
+
+	- React-Komponenten (.tsx/.jsx) werden im Script wie Astro-Komponenten importiert.
+	- Ohne Direktive rendert Astro sie nur einmal beim Build zu statischem HTML.
+	  Es kommt kein JavaScript im Browser an, useState, onClick usw. funktionieren dann nicht.
+	- Mit einer `client:*`-Direktive wird die Komponente im Browser „hydriert“, also interaktiv:
+	    client:load     → sofort beim Laden der Seite
+	    client:idle     → sobald der Browser nichts anderes zu tun hat
+	    client:visible  → erst, wenn die Komponente in den sichtbaren Bereich scrollt
+	- Nur diese „Insel“ bekommt JavaScript, der Rest der Seite bleibt reines HTML.
+
+	Die React-Logik selbst (State, Events) steht in src/components/FeedbackForm.tsx.
+	Die Styles dort sind ein CSS-Modul: Die Klassennamen werden eindeutig gemacht und gelten nur für die Komponente.
+
+	Doku: https://docs.astro.build/en/guides/framework-components/
+*/}

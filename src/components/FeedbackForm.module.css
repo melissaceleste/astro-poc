@@ -1,0 +1,42 @@
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	max-width: 32rem;
+}
+
+.form textarea {
+	font: inherit;
+	padding: 0.5rem;
+	border: 2px solid #0b3d91;
+	border-radius: 4px;
+}
+
+.counter {
+	margin: 0;
+	font-size: 0.875rem;
+	color: #555;
+}
+
+.button {
+	align-self: flex-start;
+	padding: 0.75rem 1.25rem;
+	border: 2px solid #0b3d91;
+	border-radius: 4px;
+	background: #0b3d91;
+	color: #fff;
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.button:focus-visible,
+.form textarea:focus-visible {
+	outline: 3px solid #f5a623;
+	outline-offset: 2px;
+}
