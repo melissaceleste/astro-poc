@@ -1,0 +1,86 @@
+---
+import Button from '../components/Button.astro';
+import Layout from '../layouts/Layout.astro';
+
+const title = '404 - Seite nicht gefunden';
+const description =
+	'Leider können wir die gesuchte Seite nicht finden. Vielleicht wurde sie entfernt, der Speicherort geändert oder auf andere Art unzugänglich gemacht.';
+
+const buttons = [
+	{ text: 'Zur Startseite', variant: 'primary', icon: 'arrow-forward', href: '/' },
+	{ text: 'Feedback geben', variant: 'secondary', icon: 'arrow-forward', href: '/feedback' },
+] as const;
+---
+
+<Layout title={title} description="Die gesuchte Seite konnte nicht gefunden werden.">
+	<main>
+		<h1>{title}</h1>
+		<p class="lead">{description}</p>
+
+		<div class="buttons">
+			{buttons.map((b) => (
+				<Button href={b.href} variant={b.variant} icon={b.icon}>
+					{b.text}
+				</Button>
+			))}
+		</div>
+
+		<h2>Was Sie tun können</h2>
+
+		<p>Wenn Sie die URL direkt eingegeben haben, prüfen Sie die Schreibweise und Groß- und Kleinschreibung.</p>
+
+		<p>Wenn Sie die URL kopiert haben, prüfen Sie, ob die URL vollständig ist.</p>
+
+		<p>
+			Wenn Sie über einen Button oder Link zu dieser Seite gelangt sind, melden Sie es uns über das
+			<a href="/feedback">Feedback-Formular</a>.
+		</p>
+
+		<Button href="/" variant="secondary" icon="arrow-forward" iconPosition="right">
+			Zur Startseite
+		</Button>
+	</main>
+</Layout>
+
+<style>
+	main {
+		max-width: 48rem;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+		font-family: system-ui, sans-serif;
+		line-height: 1.5;
+	}
+	.lead {
+		font-size: 1.25rem;
+	}
+	.buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin: 1.5rem 0 2.5rem;
+	}
+</style>
+
+{/*
+	Aufbau einer .astro-Datei (dieser Kommentar landet nicht im HTML):
+
+	1. Component Script, zwischen den beiden `---`
+	   - Normales JavaScript/TypeScript: Imports, Variablen, Logik.
+	   - Läuft nur beim Build bzw. auf dem Server, nie im Browser.
+	   - Die `---`-Schreibweise kommt vom Markdown-Frontmatter, hier steht aber echter Code statt YAML.
+
+	2. Template, unterhalb der `---`
+	   - HTML mit Ausdrücken in geschweiften Klammern:
+	     {title}                      → setzt den Wert einer Variable ein
+	     {bedingung && <p>…</p>}      → rendert nur, wenn die Bedingung wahr ist
+	     {buttons.map((b) => …)}      → rendert eine Liste
+	   - Großgeschriebene Tags (<Layout>, <Button>) sind importierte Komponenten,
+	     kleingeschriebene (<p>, <main>) normales HTML.
+	   - Props: Attribute wie href="/" werden in der Komponente über `Astro.props` gelesen.
+	   - Slots: Alles zwischen <Layout>…</Layout> landet im <slot /> des Layouts.
+
+	3. <style>
+	   - Gilt nur für diese Komponente (scoped). Astro bündelt das CSS beim Build in eine eigene Datei.
+
+	Doku: https://docs.astro.build/en/basics/astro-components/
+*/}
